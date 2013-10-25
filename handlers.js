@@ -3,12 +3,22 @@
  */
 document.getElementById('board').onclick = function(event) {
   var clicking_element = event.target || event.srcElement,
-      method_name = clicking_element.getAttribute('role');
-  game.new_step(method_name.substring(5));
+      method_name = clicking_element.getAttribute('role'),
+      row = method_name[5],
+      cell = method_name[6];
+
+  if (app.board.rows[row][cell].chip != 'undefined' && !app.game.end) {
+    app.game.step(row, cell);
+  }
 };
 
-document.getElementById('gamers').onclick = function(event) {
-  var clicking_element = event.target || event.srcElement,
-      method_name = clicking_element.getAttribute('role');
-  gamers.chenge_name(method_name);
+/**
+ * По клику новая игра
+ */
+document.getElementById('restart').onclick = function(event) {
+  delete app.board;
+ 	app.board = new Board();
+  app.board.redraw();
+  app.game = new Game(app.player1);
+  document.getElementById("winner").innerHTML = "";
 };

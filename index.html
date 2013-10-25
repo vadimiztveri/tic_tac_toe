@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Визуальный подбор цвета в RGB</title>
+		<title>Крестики-нолики</title>
 		<meta http-equiv="Content-Language" content="ru">
 		<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 		<link type="text/css" href="style.css" rel="stylesheet" />
@@ -10,21 +10,21 @@
 		<h1>Крестики-нолики</h1>
 		
 		<div id="gamers">
-		<span id="gamer1" role="gamer1" title="Сменить имя">Игрок 1:</span> <img src="png/zero.png">&nbsp;&nbsp;&nbsp;&nbsp;
-		<span id="gamer2" role="gamer1" title="Сменить имя">Игрок 2:</span> <img src="png/cross.png">
+		<span id="gamer1" role="gamer1">Игрок 1:</span> <img src="png/cross.png">&nbsp;&nbsp;&nbsp;&nbsp;
+		<span id="gamer2" role="gamer1">Игрок 2:</span> <img src="png/zero.png">&nbsp;&nbsp;&nbsp;&nbsp;<span id="winner"></span>
 		</div>
 
 		<table id="board"></table>
 		
-		<button>Начать сначала</button>
+		<button id="restart">Начать сначала</button>
 		
 		<script src="board.js"></script>
 		<script src="cell.js"></script>
 		<script src="cross.js"></script>
 		<script src="zero.js"></script>
-		<script src="gamer1.js"></script>
-		<script src="gamer2.js"></script>
+		<script src="player.js"></script>
 		<script src="handlers.js"></script>
+		<script src="game.js"></script>
 		<script src="application.js"></script>
 
 	</body>
