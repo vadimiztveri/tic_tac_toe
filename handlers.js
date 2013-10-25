@@ -4,19 +4,11 @@
 document.getElementById('board').onclick = function(event) {
   var clicking_element = event.target || event.srcElement,
       method_name = clicking_element.getAttribute('role');
-//      handler = click_handlers[method_name];
-//  if (typeof(handler) !== 'undefined') {
-
-  game.step.action(method_name.substring(5));
-
-//    handler(event);
-//  }
+  game.new_step(method_name.substring(5));
 };
 
-/*
-var click_handlers = {
-  "year-minus": function(event) {
-    calendar.select_previous_year();
-  },
+document.getElementById('gamers').onclick = function(event) {
+  var clicking_element = event.target || event.srcElement,
+      method_name = clicking_element.getAttribute('role');
+  gamers.chenge_name(method_name);
 };
-*/
