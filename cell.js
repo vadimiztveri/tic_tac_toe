@@ -13,7 +13,9 @@ Cell.prototype.redraw = function(cell_number) {
   var id = "cell-" + cell_number,
       style = "";
 
-  if (this.chip != undefined) {style = " style=\"background-image:url('png/" + this.chip + ".png')"};
+  if (this.chip != undefined) {
+    style = this.chip.redraw();
+  }
 
-  return "<td role='" + id + "' " + style + "\"></td>";
+  return "<td role='" + id + "' " + style + "></td>";
 };

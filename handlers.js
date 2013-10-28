@@ -20,5 +20,6 @@ document.getElementById('restart').onclick = function(event) {
  	app.board = new Board();
   app.board.redraw();
   app.game = new Game(app.player1);
+  app.game.display_chenge_player_to("player1");
   document.getElementById("winner").innerHTML = "";
 };

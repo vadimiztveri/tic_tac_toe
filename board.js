@@ -6,6 +6,9 @@ function Board() {
   this.rows = this.create_rows();
 };
 
+/**
+ * Три массива по 3 ячейки
+ */
 Board.prototype.create_rows = function() {
   var new_row = [];
       rows = [];
@@ -26,5 +29,12 @@ Board.prototype.redraw = function() {
     }
     table_text += "</tr>";
   }
+  this.display(table_text);
+};
+
+/**
+ * Вставляет игровую доску в HTML
+ */
+Board.prototype.display = function(table_text) {
   document.getElementById("board").innerHTML = table_text;
 };
