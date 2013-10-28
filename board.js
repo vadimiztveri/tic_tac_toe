@@ -38,3 +38,31 @@ Board.prototype.redraw = function() {
 Board.prototype.display = function(table_text) {
   document.getElementById("board").innerHTML = table_text;
 };
+
+Board.prototype.contains_at = function (chip, i, row_or_cell) {
+  var line = true;
+
+  if (row_or_cell === "row") {
+    for (var j = 0; j < 3; j++){
+      if (this.rows[i][j].chip != chip) {line = false;}
+    }
+  } else if (row_or_cell === "cell") {
+    for (var j = 0; j < 3; j++){
+      if (this.rows[j][i].chip != chip) {line = false;}
+    }
+  } else {
+    for (var j = 0; j < 3; j++){
+      if (this.rows[j][this.ivers(i, j)].chip != chip) {line = false;}
+    }
+  }
+  
+  return line;
+};
+
+Board.prototype.ivers = function(i, j) {
+  if (i === 1) {
+    return 2 - j;
+  } else {
+    return j;
+  } 
+}

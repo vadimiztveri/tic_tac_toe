@@ -3,6 +3,7 @@
  * @constructor
  */
 function Cell() {
+  this.win = false;
 };
 
 Cell.prototype.set_chip = function(chip) {
@@ -10,12 +11,17 @@ Cell.prototype.set_chip = function(chip) {
 };
 
 Cell.prototype.redraw = function(cell_number) {
-  var id = "cell-" + cell_number,
-      style = "";
+  var role = "cell-" + cell_number,
+      style = "",
+      html_class = "";
 
   if (this.chip != undefined) {
     style = this.chip.redraw();
   }
 
-  return "<td role='" + id + "' " + style + "></td>";
+  if (this.win) {
+    html_class = "style='win'";
+  }
+
+  return "<td role='" + role + "' " + style + html_class + "></td>";
 };

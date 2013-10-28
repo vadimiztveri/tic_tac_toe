@@ -5,13 +5,14 @@ function Game(current_player) {
   this.current_player = current_player;
   this.step_number = 0;
   this.end = false;
+  this.board = app.board;
 };
 
 /**
  * Ход одного игрока
  */
 Game.prototype.step = function(row, cell) {
-  app.board.rows[row][cell].set_chip(this.current_player.chip);
+  this.board.rows[row][cell].set_chip(this.current_player.chip);
 
   if (this.is_victory()) {
     this.ended_in_victory();
@@ -24,7 +25,7 @@ Game.prototype.step = function(row, cell) {
     }
   }
 
-  app.board.redraw();
+  this.board.redraw();
 };
 
 /**
@@ -53,45 +54,58 @@ Game.prototype.display_chenge_player_to = function(player) {
   document.getElementById("gamer2").style.color = color_player2;
 };
 
-/**
- * Если случилась победа
- */
 Game.prototype.ended_in_victory = function() {
   this.end = true;
-  this.display_end_with("win", this.current_player.name);
-//  document.getElementById("winner").innerHTML = "Победил " + this.current_player.name;
+  this.display_end_with("win", this.is_victory);
 };
 
-/**
- * Если случилась ничья
- */
 Game.prototype.ended_in_standoff = function() {
   this.end = true;
   this.display_end_with("standoff");
-//  document.getElementById("winner").innerHTML = "Ничья";
 };
 
 Game.prototype.display_end_with = function(result) {
-  console.log(result);
   if (result === "standoff") {var text = "Ничья";}
   if (result === "win") {var text = "Победил" + this.current_player.name;}
 
-  document.getElementById("winner").innerHTML = text;  
+  document.getElementById("winner").innerHTML = text;
 }
+
+Game.prototype.display_light = function(wins_cell) {
+
+  if (wins_cell[0] === "row") {
+    for (var i = 0; i < 3; i++){
+      this.board.rows[wins_cell[1]][i].win = true;
+    }
+  }
+  if (wins_cell[0] === "cell") {
+    for (var i = 0; i < 3; i++){
+      this.board.rows[i][wins_cell[1]].win = true;
+    }
+  }
+
+console.log(temp());
+  this.board.redrow;
+};
 
 Game.prototype.is_victory = function() {
   for (var i = 0; i < 3; i++) {
-    // board.at(i, 0) == this.current_player.chip
-    // board.contains_at(this.current_player.chip, i, 0)
-    if (app.board.rows[i][0].chip === this.current_player.chip && app.board.rows[i][1].chip === this.current_player.chip && app.board.rows[i][2].chip === this.current_player.chip){return true;}
+    if (this.board.contains_at(this.current_player.chip, i, "row")) {this.display_light(["row", i]); return true;}
   }
   
   for (var i = 0; i < 3; i++) {
-    if (app.board.rows[0][i].chip === this.current_player.chip && app.board.rows[1][i].chip === this.current_player.chip && app.board.rows[2][i].chip === this.current_player.chip){return true;}
+    if (this.board.contains_at(this.current_player.chip, i, "cell")) {this.display_light(["cell", i]); return true;}
   }
 
-  if (app.board.rows[0][0].chip === this.current_player.chip && app.board.rows[1][1].chip === this.current_player.chip && app.board.rows[2][2].chip === this.current_player.chip){return true;}
-  if (app.board.rows[2][0].chip === this.current_player.chip && app.board.rows[1][1].chip === this.current_player.chip && app.board.rows[0][2].chip === this.current_player.chip){return true;}
+  if (this.board.contains_at(this.current_player.chip, 0, "diagonal")) {return ["cell", 0];}
+  if (this.board.contains_at(this.current_player.chip, 1, "diagonal")) {return ["cell", 1];}
 
   return false;
 };
+
+var temp = function () {
+  for (var i = 0; i < 3; i++) {
+    console.log([app.board.rows[i][0].win, app.board.rows[i][1].win, app.board.rows[i][2].win]);
+  }
+}
+  

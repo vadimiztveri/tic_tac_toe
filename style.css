@@ -11,6 +11,9 @@ table td{
 	text-align:center;
 	background:transparent no-repeat center center;
 }
+table td.win{
+	background:#b9f6a9;
+}
 button{
 	font-size:200%;
 	padding:5px 15px;
