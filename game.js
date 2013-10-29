@@ -71,41 +71,52 @@ Game.prototype.display_end_with = function(result) {
   document.getElementById("winner").innerHTML = text;
 }
 
-Game.prototype.display_light = function(wins_cell) {
-
-  if (wins_cell[0] === "row") {
-    for (var i = 0; i < 3; i++){
-      this.board.rows[wins_cell[1]][i].win = true;
-    }
-  }
-  if (wins_cell[0] === "cell") {
-    for (var i = 0; i < 3; i++){
-      this.board.rows[i][wins_cell[1]].win = true;
-    }
-  }
-
-console.log(temp());
-  this.board.redrow;
-};
-
 Game.prototype.is_victory = function() {
   for (var i = 0; i < 3; i++) {
-    if (this.board.contains_at(this.current_player.chip, i, "row")) {this.display_light(["row", i]); return true;}
+    if (this.board.contains_at(this.current_player.chip, i, "row")) {this.set_light_win(["gorisont", i]); return true;}
   }
   
   for (var i = 0; i < 3; i++) {
-    if (this.board.contains_at(this.current_player.chip, i, "cell")) {this.display_light(["cell", i]); return true;}
+    if (this.board.contains_at(this.current_player.chip, i, "cell")) {this.set_light_win(["vertical", i]); return true;}
   }
 
-  if (this.board.contains_at(this.current_player.chip, 0, "diagonal")) {return ["cell", 0];}
-  if (this.board.contains_at(this.current_player.chip, 1, "diagonal")) {return ["cell", 1];}
+  if (this.board.contains_at(this.current_player.chip, 0, "diagonal")) {this.set_light_win(["diagonal", 0]); return true;}
+  if (this.board.contains_at(this.current_player.chip, 1, "diagonal")) {this.set_light_win(["diagonal", 1]); return true;}
 
   return false;
 };
 
-var temp = function () {
-  for (var i = 0; i < 3; i++) {
-    console.log([app.board.rows[i][0].win, app.board.rows[i][1].win, app.board.rows[i][2].win]);
+
+Game.prototype.set_light_win = function(win_cells) {
+
+  if (win_cells[0] === "gorisont") {
+    for (var i = 0; i < 3; i++){
+      this.board.rows[win_cells[1]][i].set_win();
+    }
   }
-}
-  
+  if (win_cells[0] === "vertical") {
+    for (var i = 0; i < 3; i++){
+      this.board.rows[i][win_cells[1]].set_win();
+    }
+  }
+
+  if (win_cells[0] === "diagonal") {
+    for (var i = 0; i < 3; i++){
+      if (win_cells[1] === 0) {this.board.rows[i][i].set_win();}
+      if (win_cells[1] === 1) {this.board.rows[2- i][i].set_win();}
+    }
+  }
+
+  this.board.redrow;
+};
+
+
+/**
+ * Временная фигня
+var temp = function() {
+  console.log("----------------");
+  for (var i = 0; i < 3; i++) {
+    console.log([app.board.rows[i][0].win, app.board.rows[i][1].win, app.board.rows[i][2].win])
+  }
+};
+ */

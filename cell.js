@@ -3,11 +3,14 @@
  * @constructor
  */
 function Cell() {
-  this.win = false;
 };
 
 Cell.prototype.set_chip = function(chip) {
   this.chip = chip;
+};
+
+Cell.prototype.set_win = function(chip) {
+  this.win = true;
 };
 
 Cell.prototype.redraw = function(cell_number) {
@@ -19,8 +22,9 @@ Cell.prototype.redraw = function(cell_number) {
     style = this.chip.redraw();
   }
 
-  if (this.win) {
-    html_class = "style='win'";
+  if (this.win === true) {
+    console.log(this.win);
+    html_class = "class=win";
   }
 
   return "<td role='" + role + "' " + style + html_class + "></td>";
