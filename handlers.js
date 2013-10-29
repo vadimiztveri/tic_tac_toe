@@ -17,9 +17,9 @@ document.getElementById('board').onclick = function(event) {
  */
 document.getElementById('restart').onclick = function(event) {
   delete app.board;
- 	app.board = new Board();
+ 	app.board = new Board(3);
   app.board.redraw();
   app.game = new Game(app.player1);
-  app.game.display_chenge_player_to("player1");
+  app.game.display_change_player_to("player1");
   document.getElementById("winner").innerHTML = "";
 };

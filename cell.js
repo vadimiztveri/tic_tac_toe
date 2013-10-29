@@ -13,8 +13,8 @@ Cell.prototype.set_win = function(chip) {
   this.win = true;
 };
 
-Cell.prototype.redraw = function(cell_number) {
-  var role = "cell-" + cell_number,
+Cell.prototype.redraw = function(row, cell) {
+  var role = "cell-" + row + cell,
       style = "",
       html_class = "";
 
@@ -23,7 +23,6 @@ Cell.prototype.redraw = function(cell_number) {
   }
 
   if (this.win === true) {
-    console.log(this.win);
     html_class = "class=win";
   }
 

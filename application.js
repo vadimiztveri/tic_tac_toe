@@ -2,7 +2,7 @@ function Application() {
 };
 
 Application.prototype.run = function() {
-	this.board = new Board();
+	this.board = new Board(3);
   this.board.redraw();
   this.player1 = new Player(new Chip("cross"), "Игрок 1");
   this.player2 = new Player(new Chip("zero"), "Игрок 2");
