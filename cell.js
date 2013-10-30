@@ -3,6 +3,7 @@
  * @constructor
  */
 function Cell() {
+  this.chip = undefined;
 };
 
 Cell.prototype.set_chip = function(chip) {

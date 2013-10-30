@@ -14,8 +14,6 @@ function Game(current_player) {
 Game.prototype.step = function(row, cell) {
   this.last_turn = new Turn(this.current_player, [row, cell], this.board);
 
-console.log(this.board.number_cells_on_side*this.board.number_cells_on_side - 1);
-
   if (this.last_turn.is_victory()) {
     this.ended_in_victory();
   } else {
@@ -83,10 +81,3 @@ Game.prototype.display_end_with = function(result) {
 
   document.getElementById("winner").innerHTML = text;
 };
-
-var temp = function() {
-  console.log("--------------");
-  for (var i = 0; i < app.board.number_cells_on_side; i++){
-    console.log([app.board.rows[i][0].chip.name, app.board.rows[i][1].chip.name, app.board.rows[i][2].chip.name]);
-  }
-}

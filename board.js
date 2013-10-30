@@ -8,7 +8,7 @@ function Board(number_cells_on_side) {
 };
 
 /**
- * Три массива по 3 ячейки
+ * Создает массивы ячеек. Массивров по числу this.number_cells_on_side, в каждом массиве ячеек по числу this.number_cells_on_side
  */
 Board.prototype.create_rows = function() {
   var rows = [];
@@ -42,6 +42,14 @@ Board.prototype.redraw = function() {
 Board.prototype.display = function(table_text) {
   document.getElementById("board").innerHTML = table_text;
 };
+
+Board.prototype.get_chip = function(row, cell) {
+  if (this.rows[row][cell].chip === undefined) {
+    return false;
+  } else {
+    return this.rows[row][cell].chip.name;
+  }
+}
 
 
 Board.prototype.contains_at = function (chip, i, row_or_cell) {

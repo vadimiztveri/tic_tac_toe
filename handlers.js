@@ -16,8 +16,9 @@ document.getElementById('board').onclick = function(event) {
  * По клику новая игра
  */
 document.getElementById('restart').onclick = function(event) {
+  var number_cell = app.board.number_cells_on_side;
   delete app.board;
- 	app.board = new Board(3);
+ 	app.board = new Board(number_cell);
   app.board.redraw();
   app.game = new Game(app.player1);
   app.game.display_change_player_to("player1");

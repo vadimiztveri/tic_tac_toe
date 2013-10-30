@@ -31,26 +31,30 @@ if (x.type === a.DIAGONAL)
  * Првоеряет, есть ли на доске победная комбинация
  */
 Turn.prototype.is_victory = function() {
-
+  
   for (var i = 0; i < this.board.number_cells_on_side; i++) {
-    if (this.board.contains_at(this.player.chip, i, "gorisont")) {
-      this.set_light_win_cells("gorisont", i);
+    var winning_combination = new WinningCombination(this.player.get_chip(), i, this.board);
+    if (winning_combination.gorisontal()) {
+      this.set_light_win_cells(this.GORISONTAL, i);
       return true;
     }
   }
   
   for (var i = 0; i < this.board.number_cells_on_side; i++) {
-    if (this.board.contains_at(this.player.chip, i, "vertical")) {
-      this.set_light_win_cells("vertical", i);
+    var winning_combination = new WinningCombination(this.player.get_chip(), i, this.board);
+    if (winning_combination.vertical()) {
+      this.set_light_win_cells(this.VERTICAL, i);
       return true;
     }
   }
 
-  if (this.board.contains_at(this.player.chip, 0, "diagonal")) {
-    this.set_light_win_cells("diagonal", 0); return true;
+  var winning_combination = new WinningCombination(this.player.get_chip(), 0, this.board);
+  if (winning_combination.diagonal()) {
+    this.set_light_win_cells(this.DIAGONAL, 0); return true;
   }
-  if (this.board.contains_at(this.player.chip, 1, "diagonal")) {
-    this.set_light_win_cells("diagonal", 1);
+  var winning_combination = new WinningCombination(this.player.get_chip(), 1, this.board);
+  if (winning_combination.diagonal()) {
+    this.set_light_win_cells(this.DIAGONAL, 1);
     return true;
   }
 
@@ -59,23 +63,25 @@ Turn.prototype.is_victory = function() {
 
 Turn.prototype.set_light_win_cells = function(direction, number) {
 
-  if (direction === "gorisont") {
+  if (direction === 1) {
     for (var i = 0; i < this.board.number_cells_on_side; i++){
       this.board.rows[number][i].set_win();
     }
   }
-  if (direction === "vertical") {
+  if (direction === 2) {
     for (var i = 0; i < this.board.number_cells_on_side; i++){
       this.board.rows[i][number].set_win();
     }
   }
 
-  if (direction === "diagonal") {
+  if (direction === 3) {
     for (var i = 0; i < this.board.number_cells_on_side; i++){
-      if (number === 0) {this.board.rows[i][i].set_win();}
-      if (number === 1) {this.board.rows[2 - i][i].set_win();}
+      if (number === 0) {
+        this.board.rows[i][i].set_win();
+      }
+      if (number === 1) {
+        this.board.rows[this.board.number_cells_on_side - 1 - i][i].set_win();
+      }
     }
   }
-
-  this.board.redrow;
 };
