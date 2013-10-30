@@ -2,20 +2,20 @@
  * Доска для игры
  * @constructor
  */
-function Board(number_cells_on_side) {
-  this.number_cells_on_side = number_cells_on_side;
+function Board(length_board) {
+  this.length_board = length_board;
   this.rows = this.create_rows();
 };
 
 /**
- * Создает массивы ячеек. Массивров по числу this.number_cells_on_side, в каждом массиве ячеек по числу this.number_cells_on_side
+ * Создает массивы ячеек. Массивров по числу this.length_board, в каждом массиве ячеек по числу this.length_board
  */
 Board.prototype.create_rows = function() {
   var rows = [];
 
-  for (var i = 0; i < this.number_cells_on_side; i++) {
+  for (var i = 0; i < this.length_board; i++) {
     var new_row = [];    
-    for (var j = 0; j < this.number_cells_on_side; j++) {
+    for (var j = 0; j < this.length_board; j++) {
       new_row.push(new Cell());
     }
     rows.push(new_row);
@@ -26,9 +26,9 @@ Board.prototype.create_rows = function() {
 
 Board.prototype.redraw = function() {
   var table_text = "";
-  for (var i = 0; i < this.number_cells_on_side; i++) {
+  for (var i = 0; i < this.length_board; i++) {
     table_text += "<tr>";
-    for (var j = 0; j <this.number_cells_on_side; j++) {
+    for (var j = 0; j <this.length_board; j++) {
       table_text += this.rows[i][j].redraw(i, j);
     }
     table_text += "</tr>";
@@ -50,31 +50,3 @@ Board.prototype.get_chip = function(row, cell) {
     return this.rows[row][cell].chip.name;
   }
 }
-
-
-Board.prototype.contains_at = function (chip, i, row_or_cell) {
-  var line = true;
-
-  if (row_or_cell === "gorisont") {
-    for (var j = 0; j < this.number_cells_on_side; j++){
-      if (this.rows[i][j].chip != chip) {line = false;}
-    }
-  } else if (row_or_cell === "vertical") {
-    for (var j = 0; j < this.number_cells_on_side; j++){
-      if (this.rows[j][i].chip != chip) {line = false;}
-    }
-  } else {
-    if (i = 0) {
-      for (var j = 0; j < this.number_cells_on_side; j++){
-        if (this.rows[j][j].chip != chip) {line = false;}
-      }
-    }
-    if (i = 1) {
-      for (var j = 0; j < this.number_cells_on_side; j++){
-        if (this.rows[j][this.number_cells_on_side - 1 - j].chip != chip) {line = false;}
-      }
-    }
-  }
-  
-  return line;
-};

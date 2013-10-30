@@ -11,7 +11,6 @@ function Turn(player, coordinates, board) {
   this.set_chip();
 };
 
-
 Turn.prototype.set_chip = function () {
   this.board.rows[this.row][this.cell].set_chip(this.player.chip);
 };
@@ -20,19 +19,12 @@ Turn.prototype.GORISONTAL = 1;
 Turn.prototype.VERTICAL = 2;
 Turn.prototype.DIAGONAL = 3;
 
-/*
-a = new Turn()
-a.DIAGONAL // 1
-a.set_chip()
-if (x.type === a.DIAGONAL)
-*/
-
 /**
- * Првоеряет, есть ли на доске победная комбинация
+ * Проверяет, есть ли на доске победная комбинация
  */
 Turn.prototype.is_victory = function() {
   
-  for (var i = 0; i < this.board.number_cells_on_side; i++) {
+  for (var i = 0; i < this.board.length_board; i++) {
     var winning_combination = new WinningCombination(this.player.get_chip(), i, this.board);
     if (winning_combination.gorisontal()) {
       this.set_light_win_cells(this.GORISONTAL, i);
@@ -40,19 +32,19 @@ Turn.prototype.is_victory = function() {
     }
   }
   
-  for (var i = 0; i < this.board.number_cells_on_side; i++) {
-    var winning_combination = new WinningCombination(this.player.get_chip(), i, this.board);
+  for (var i = 0; i < this.board.length_board; i++) {
+    winning_combination = new WinningCombination(this.player.get_chip(), i, this.board);
     if (winning_combination.vertical()) {
       this.set_light_win_cells(this.VERTICAL, i);
       return true;
     }
   }
 
-  var winning_combination = new WinningCombination(this.player.get_chip(), 0, this.board);
+  winning_combination = new WinningCombination(this.player.get_chip(), 0, this.board);
   if (winning_combination.diagonal()) {
     this.set_light_win_cells(this.DIAGONAL, 0); return true;
   }
-  var winning_combination = new WinningCombination(this.player.get_chip(), 1, this.board);
+  winning_combination = new WinningCombination(this.player.get_chip(), 1, this.board);
   if (winning_combination.diagonal()) {
     this.set_light_win_cells(this.DIAGONAL, 1);
     return true;
@@ -64,23 +56,23 @@ Turn.prototype.is_victory = function() {
 Turn.prototype.set_light_win_cells = function(direction, number) {
 
   if (direction === 1) {
-    for (var i = 0; i < this.board.number_cells_on_side; i++){
+    for (var i = 0; i < this.board.length_board; i++){
       this.board.rows[number][i].set_win();
     }
   }
   if (direction === 2) {
-    for (var i = 0; i < this.board.number_cells_on_side; i++){
+    for (var i = 0; i < this.board.length_board; i++){
       this.board.rows[i][number].set_win();
     }
   }
 
   if (direction === 3) {
-    for (var i = 0; i < this.board.number_cells_on_side; i++){
+    for (var i = 0; i < this.board.length_board; i++){
       if (number === 0) {
         this.board.rows[i][i].set_win();
       }
       if (number === 1) {
-        this.board.rows[this.board.number_cells_on_side - 1 - i][i].set_win();
+        this.board.rows[this.board.length_board - 1 - i][i].set_win();
       }
     }
   }

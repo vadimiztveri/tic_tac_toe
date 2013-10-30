@@ -65,19 +65,39 @@ Game.prototype.display_change_player_to = function(player) {
   document.getElementById("gamer2").style.color = color_player2;
 };
 
+Game.prototype.STANDOFF = 0;
+Game.prototype.WIN = 1;
+
 Game.prototype.ended_in_victory = function() {
   this.end = true;
-  this.display_end_with("win", this.is_victory);
+  this.display_end_with(this.WIN, this.is_victory);
 };
 
 Game.prototype.ended_in_standoff = function() {
   this.end = true;
-  this.display_end_with("standoff");
+  this.display_end_with(this.STANDOFF);
 };
 
 Game.prototype.display_end_with = function(result) {
-  if (result === "standoff") {var text = "Ничья";}
-  if (result === "win") {var text = "Победил" + this.current_player.name;}
+  if (result === 0) {var text = "Ничья";}
+  if (result === 1) {var text = "Победил" + this.current_player.name;}
 
   document.getElementById("winner").innerHTML = text;
 };
+
+/*
+var temp = function() {
+  console.log("--------------");
+  for (var i = 0; i < app.board.number_cells_on_side; i++){
+    var array = [];
+    for (var j = 0; j < app.board.number_cells_on_side; j++){
+      if (app.board.rows[i][j].chip) {
+        array.push(app.board.rows[i][j].chip.name);
+      } else {
+        array.push("____");
+      }
+    }
+  console.log(array);
+  }
+}
+*/

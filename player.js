@@ -9,7 +9,4 @@ function Player(chip, name) {
 
 Player.prototype.get_chip = function() {
   return this.chip.name;
-}
-
-// var player = new Player()
-// player.chip --> player.get_chip()
+};
