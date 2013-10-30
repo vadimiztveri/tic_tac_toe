@@ -50,3 +50,11 @@ Board.prototype.get_chip = function(row, cell) {
     return false;
   }
 }
+
+Board.prototype.get_win = function(row, cell) {
+  if (this.rows[row][cell].win) {
+    return true;
+  } else {
+    return false;
+  }
+}

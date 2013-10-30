@@ -1,11 +1,11 @@
 /**
  * @constructor
  */
-function Game(current_player) {
+function Game(current_player, board) {
   this.current_player = current_player;
   this.step_number = 0;
   this.end = false;
-  this.board = app.board;
+  this.board = board;
 };
 
 /**
@@ -24,7 +24,7 @@ Game.prototype.step = function(row, cell) {
     }
   }
 
-  this.board.redraw();
+  app.redraw.set_board();
 };
 
 Game.prototype.prepare_next_turn = function() {

@@ -6,7 +6,7 @@ function Handler() {
 };
 var handler = new Handler;
 
-$("#game").on("click", function(event){
+Handler.prototype.event_of_user = $("#game").on("click", function(event){
   var clicking_element = event.target;
   var element_role = "" + clicking_element.getAttribute('role');
 
@@ -16,6 +16,7 @@ $("#game").on("click", function(event){
   if (clicking_element.id === "restart") {
     handler.start();
   }
+
   if (element_role.substring(0, 4) === "cell") {
     handler.set_new_turn(element_role[5], element_role[6]);
   }
@@ -35,8 +36,7 @@ Handler.prototype.start = function() {
     app.run();
     document.getElementById("game-area").style.display = "block";
   }
-  return false;
-};  
+};
 
 /**
  * По клику в доску получает сведения о ходе игрока
