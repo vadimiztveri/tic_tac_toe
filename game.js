@@ -20,19 +20,20 @@ Game.prototype.step = function(row, cell) {
     if (this.is_last_step()) {
       this.ended_in_standoff();
     } else {
-      // this.next_turn();
-      
-      this.change_current_player();
-      this.step_number++;
-      // this.last_turn = ...
+      this.prepare_next_turn();
     }
   }
 
   this.board.redraw();
 };
 
+Game.prototype.prepare_next_turn = function() {
+  this.change_current_player();
+  this.step_number++; 
+}
+
 Game.prototype.is_last_step = function() {
-  if (this.step_number === (this.board.number_cells_on_side*this.board.number_cells_on_side - 1)) {
+  if (this.step_number === (this.board.size_board*this.board.size_board - 1)) {
     return true;
   } else {
     return false;
@@ -65,32 +66,30 @@ Game.prototype.display_change_player_to = function(player) {
   document.getElementById("gamer2").style.color = color_player2;
 };
 
-Game.prototype.STANDOFF = 0;
-Game.prototype.WIN = 1;
-
 Game.prototype.ended_in_victory = function() {
   this.end = true;
-  this.display_end_with(this.WIN, this.is_victory);
+  this.display_end_with_victory();
+};
+
+Game.prototype.display_end_with_victory = function() {
+  document.getElementById("winner").innerHTML = "Победил" + this.current_player.name;
 };
 
 Game.prototype.ended_in_standoff = function() {
   this.end = true;
-  this.display_end_with(this.STANDOFF);
+  this.display_end_with_standoff();
 };
 
-Game.prototype.display_end_with = function(result) {
-  if (result === 0) {var text = "Ничья";}
-  if (result === 1) {var text = "Победил" + this.current_player.name;}
-
-  document.getElementById("winner").innerHTML = text;
+Game.prototype.display_end_with_standoff = function() {
+  document.getElementById("winner").innerHTML = "Ничья";
 };
 
-/*
+
 var temp = function() {
   console.log("--------------");
-  for (var i = 0; i < app.board.number_cells_on_side; i++){
+  for (var i = 0; i < app.board.size_board; i++){
     var array = [];
-    for (var j = 0; j < app.board.number_cells_on_side; j++){
+    for (var j = 0; j < app.board.size_board; j++){
       if (app.board.rows[i][j].chip) {
         array.push(app.board.rows[i][j].chip.name);
       } else {
@@ -100,4 +99,3 @@ var temp = function() {
   console.log(array);
   }
 }
-*/

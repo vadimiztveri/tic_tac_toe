@@ -3,7 +3,6 @@
  * @constructor
  */
 function Cell() {
-  this.chip = undefined;
 };
 
 Cell.prototype.set_chip = function(chip) {
@@ -19,7 +18,7 @@ Cell.prototype.redraw = function(row, cell) {
       style = "",
       html_class = "";
 
-  if (this.chip != undefined) {
+  if (this.chip) {
     style = this.chip.redraw();
   }
 

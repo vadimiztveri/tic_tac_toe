@@ -16,11 +16,27 @@ document.getElementById('board').onclick = function(event) {
  * По клику новая игра
  */
 document.getElementById('restart').onclick = function(event) {
-  var number_cell = app.board.number_cells_on_side;
+  var number_cell = app.board.size_board;
   delete app.board;
  	app.board = new Board(number_cell);
   app.board.redraw();
   app.game = new Game(app.player1);
   app.game.display_change_player_to("player1");
   document.getElementById("winner").innerHTML = "";
+};
+
+/**
+ * По клику новая игра
+ */
+document.getElementById('start').onclick = function(event) {
+  lenth_board = document.getElementById("lenth-board").value;
+  if (lenth_board < 1 || lenth_board > 10) {
+    alert("Длина доски должна быть от 1 до 10");
+  }
+ else {
+    app = new Application(lenth_board);
+    app.run();
+    document.getElementById("game-area").style.display = "block";
+  }
+  return false;
 };

@@ -15,65 +15,82 @@ Turn.prototype.set_chip = function () {
   this.board.rows[this.row][this.cell].set_chip(this.player.chip);
 };
 
-Turn.prototype.GORISONTAL = 1;
-Turn.prototype.VERTICAL = 2;
-Turn.prototype.DIAGONAL = 3;
-
 /**
  * Проверяет, есть ли на доске победная комбинация
  */
 Turn.prototype.is_victory = function() {
-  
-  for (var i = 0; i < this.board.length_board; i++) {
-    var winning_combination = new WinningCombination(this.player.get_chip(), i, this.board);
-    if (winning_combination.gorisontal()) {
-      this.set_light_win_cells(this.GORISONTAL, i);
-      return true;
-    }
-  }
-  
-  for (var i = 0; i < this.board.length_board; i++) {
-    winning_combination = new WinningCombination(this.player.get_chip(), i, this.board);
-    if (winning_combination.vertical()) {
-      this.set_light_win_cells(this.VERTICAL, i);
-      return true;
-    }
-  }
-
-  winning_combination = new WinningCombination(this.player.get_chip(), 0, this.board);
-  if (winning_combination.diagonal()) {
-    this.set_light_win_cells(this.DIAGONAL, 0); return true;
-  }
-  winning_combination = new WinningCombination(this.player.get_chip(), 1, this.board);
-  if (winning_combination.diagonal()) {
-    this.set_light_win_cells(this.DIAGONAL, 1);
+  if (this.is_horizontal_win() || this.is_vertical_win() || this.is_diagonal_down_win() || this.is_diagonal_up_win()) {
     return true;
   }
 
   return false;
 };
 
-Turn.prototype.set_light_win_cells = function(direction, number) {
-
-  if (direction === 1) {
-    for (var i = 0; i < this.board.length_board; i++){
-      this.board.rows[number][i].set_win();
-    }
-  }
-  if (direction === 2) {
-    for (var i = 0; i < this.board.length_board; i++){
-      this.board.rows[i][number].set_win();
+Turn.prototype.is_horizontal_win = function() {
+  for (var i = 0; i < this.board.size_board; i++) {
+    var winning_combination = new WinningCombination(this.player.get_chip(), this.board, i);
+    if (winning_combination.gorisontal()) {
+      this.set_win_cells_horizontal(i);
+      return true;
     }
   }
 
-  if (direction === 3) {
-    for (var i = 0; i < this.board.length_board; i++){
-      if (number === 0) {
-        this.board.rows[i][i].set_win();
-      }
-      if (number === 1) {
-        this.board.rows[this.board.length_board - 1 - i][i].set_win();
-      }
+  return false;
+};
+
+Turn.prototype.is_vertical_win = function() {
+  for (var i = 0; i < this.board.size_board; i++) {
+    winning_combination = new WinningCombination(this.player.get_chip(), this.board, i);
+    if (winning_combination.vertical()) {
+      this.set_win_cells_vertical(i);
+      return true;
     }
+  }
+
+  return false;
+};
+
+Turn.prototype.is_diagonal_down_win = function() {
+  winning_combination = new WinningCombination(this.player.get_chip(), this.board, 0);
+  if (winning_combination.diagonal_down()) {
+    this.set_win_cells_diagonal_down();
+    return true;
+  }
+
+  return false;
+};
+
+Turn.prototype.is_diagonal_up_win = function() {
+  winning_combination = new WinningCombination(this.player.get_chip(), this.board, 0);
+  if (winning_combination.diagonal_up()) {
+    this.set_win_cells_diagonal_up();
+    return true;
+  }
+
+  return false;
+};
+
+
+Turn.prototype.set_win_cells_horizontal = function(number) {
+  for (var i = 0; i < this.board.size_board; i++){
+    this.board.rows[number][i].set_win();
+  }
+};
+
+Turn.prototype.set_win_cells_vertical = function(number) {
+  for (var i = 0; i < this.board.size_board; i++){
+    this.board.rows[i][number].set_win();
+  }
+};
+
+Turn.prototype.set_win_cells_diagonal_down = function() {
+  for (var i = 0; i < this.board.size_board; i++){
+    this.board.rows[i][i].set_win();
+  }
+};
+
+Turn.prototype.set_win_cells_diagonal_up = function() {
+  for (var i = 0; i < this.board.size_board; i++){
+    this.board.rows[i][this.board.size_board - 1 - i].set_win();
   }
 };

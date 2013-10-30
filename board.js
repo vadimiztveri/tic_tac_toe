@@ -2,20 +2,20 @@
  * Доска для игры
  * @constructor
  */
-function Board(length_board) {
-  this.length_board = length_board;
+function Board(size_board) {
+  this.size_board = size_board;
   this.rows = this.create_rows();
 };
 
 /**
- * Создает массивы ячеек. Массивров по числу this.length_board, в каждом массиве ячеек по числу this.length_board
+ * Создает массивы ячеек. Массивров по числу this.size_board, в каждом массиве ячеек по числу this.size_board
  */
 Board.prototype.create_rows = function() {
   var rows = [];
 
-  for (var i = 0; i < this.length_board; i++) {
+  for (var i = 0; i < this.size_board; i++) {
     var new_row = [];    
-    for (var j = 0; j < this.length_board; j++) {
+    for (var j = 0; j < this.size_board; j++) {
       new_row.push(new Cell());
     }
     rows.push(new_row);
@@ -26,9 +26,9 @@ Board.prototype.create_rows = function() {
 
 Board.prototype.redraw = function() {
   var table_text = "";
-  for (var i = 0; i < this.length_board; i++) {
+  for (var i = 0; i < this.size_board; i++) {
     table_text += "<tr>";
-    for (var j = 0; j <this.length_board; j++) {
+    for (var j = 0; j <this.size_board; j++) {
       table_text += this.rows[i][j].redraw(i, j);
     }
     table_text += "</tr>";
@@ -44,9 +44,9 @@ Board.prototype.display = function(table_text) {
 };
 
 Board.prototype.get_chip = function(row, cell) {
-  if (this.rows[row][cell].chip === undefined) {
-    return false;
-  } else {
+  if (this.rows[row][cell].chip) {
     return this.rows[row][cell].chip.name;
+  } else {
+    return false;
   }
 }

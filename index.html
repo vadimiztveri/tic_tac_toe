@@ -9,14 +9,20 @@
 	<body>
 		<h1>Крестики-нолики</h1>
 		
-		<div id="gamers">
-		<span id="gamer1" role="gamer1">Игрок 1:</span> <img src="png/cross.png">&nbsp;&nbsp;&nbsp;&nbsp;
-		<span id="gamer2" role="gamer1">Игрок 2:</span> <img src="png/zero.png">&nbsp;&nbsp;&nbsp;&nbsp;<span id="winner"></span>
+		<form>
+			<input type="text" value="3" id="lenth-board"> <button id="start" >Начать игру</button>
+		</form>
+		
+		<div id="game-area">
+			<div id="gamers">
+			<span id="gamer1" role="gamer1">Игрок 1:</span> <img src="png/cross.png">&nbsp;&nbsp;&nbsp;&nbsp;
+			<span id="gamer2" role="gamer1">Игрок 2:</span> <img src="png/zero.png">&nbsp;&nbsp;&nbsp;&nbsp;<span id="winner"></span>
 		</div>
 
 		<table id="board"></table>
 		
 		<button id="restart">Начать сначала</button>
+		</div>
 		
 		<script src="board.js"></script>
 		<script src="cell.js"></script>

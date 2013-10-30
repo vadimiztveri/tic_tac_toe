@@ -2,18 +2,19 @@
  * Поиск победной комбинации
  * @constructor
  */
-function WinningCombination(chip, number, board) {
+function WinningCombination(chip, board, number) {
   this.chip = chip;
-  this.number = number;
   this.board = board;
+  this.number = number;
 };
 
 WinningCombination.prototype.gorisontal = function() {
   var win = true;
 
-  for (var i = 0; i < this.board.length_board; i++) {
+  for (var i = 0; i < this.board.size_board; i++) {
     if (this.board.get_chip(this.number, i) != this.chip) {
       win = false;
+      break;
     }
   }
 
@@ -23,29 +24,35 @@ WinningCombination.prototype.gorisontal = function() {
 WinningCombination.prototype.vertical = function() {
   var win = true;
   
-  for (var i = 0; i < this.board.length_board; i++) {
+  for (var i = 0; i < this.board.size_board; i++) {
     if (this.board.get_chip(i, this.number) != this.chip) {
       win = false;
+      break;
     }
   }
  
   return win;
 };
 
-WinningCombination.prototype.diagonal = function() {
+WinningCombination.prototype.diagonal_down = function() {
   var win = true;
   
-  if (this.number === 0) {
-    for (var i = 0; i < this.board.length_board; i++) {
-      if (this.board.get_chip(i, i) != this.chip) {
-        win = false;
-      }
+  for (var i = 0; i < this.board.size_board; i++) {
+    if (this.board.get_chip(i, i) != this.chip) {
+      win = false;
+      break;
     }
-  } else {
-    for (var i = 0; i < this.board.length_board; i++) {
-      if (this.board.get_chip(i, (this.board.length_board - 1 - i)) != this.chip) {
-        win = false;
-      }
+  }
+
+  return win;
+};
+
+WinningCombination.prototype.diagonal_up = function() {
+  var win = true;
+  
+  for (var i = 0; i < this.board.size_board; i++) {
+    if (this.board.get_chip(i, (this.board.size_board - 1 - i)) != this.chip) {
+      win = false;
     }
   }
 
