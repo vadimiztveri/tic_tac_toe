@@ -4,7 +4,7 @@
 	text-align:right;
 }
 
-#game-area{display:none;}
+#game-area{opacity:0;}
 
 table{
 	border:5px solid #ccc;

@@ -13,7 +13,7 @@ Redraw.prototype.set_all = function() {
 }
 
 Redraw.prototype.game_visible = function(){
-  document.getElementById("game-area").style.display = "block";
+  $('#game-area').animate({opacity:1});
 }
 
 Redraw.prototype.set_players = function() {
@@ -22,10 +22,10 @@ Redraw.prototype.set_players = function() {
   } else {
     var color_player1 = "#ddd"; var color_player2 = "#000";
   }
-  document.getElementById("gamer1").style.color = color_player1;
-  document.getElementById("gamer1").innerHTML = app.player1.name + " " + "<img src='png/" + app.player1.chip.name + ".png'>";
-  document.getElementById("gamer2").style.color = color_player2;
-  document.getElementById("gamer2").innerHTML = app.player2.name + " " + "<img src='png/" + app.player2.chip.name + ".png'>";
+  $("#gamer1").css("color", color_player1);
+  $("#gamer1").html(app.player1.name + " " + "<img src='png/" + app.player1.chip.name + ".png'>");
+  $("#gamer2").css("color", color_player2);
+  $("#gamer2").html(app.player2.name + " " + "<img src='png/" + app.player2.chip.name + ".png'>");
 }
 
 Redraw.prototype.set_end_game = function() {
@@ -39,7 +39,7 @@ Redraw.prototype.set_end_game = function() {
     }
   }
   
-  document.getElementById("winner").innerHTML = text;
+  $("#winner").html(text);
 }
 
 Redraw.prototype.set_board = function() {
@@ -56,7 +56,7 @@ Redraw.prototype.set_board = function() {
 }
 
 Redraw.prototype.set_cell = function(row, cell) {
-    var role = "cell-" + row + cell,
+  var role = "cell-" + row + cell,
       style = "",
       html_class = "";
 
@@ -68,6 +68,20 @@ Redraw.prototype.set_cell = function(row, cell) {
     html_class = "class=win";
   }
 
+/*
+  var node = $('<td></td>')
+    .attr('role', 'x')
+    .attr('style', 'x')
+    .attr('class', 'x');
+    .attr(
+      {
+        'role': 'x',
+        'style': 'a',
+        'class': 'b
+      }
+     )
+*/
+
   return "<td role='" + role + "' " + style + html_class + "></td>";
 };
 
@@ -76,5 +90,5 @@ Redraw.prototype.set_chip = function(chip) {
 };
 
 Redraw.prototype.display = function(table_text) {
-  document.getElementById("board").innerHTML = table_text;
+  $("#board").html(table_text);
 }

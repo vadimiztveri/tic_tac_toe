@@ -6,7 +6,11 @@ function Game(current_player, board) {
   this.step_number = 0;
   this.end = false;
   this.board = board;
-  this.redraw = new Redraw(this);
+};
+
+Game.prototype.start = function() {
+  this.painter = app.painter;
+  this.painter.set_all();
 };
 
 /**
@@ -25,7 +29,7 @@ Game.prototype.step = function(row, cell) {
     }
   }
 
-  this.redraw.set_all();
+  this.painter.set_all();
 };
 
 Game.prototype.prepare_next_turn = function() {

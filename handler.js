@@ -6,40 +6,57 @@ function Handler() {
 };
 var handler = new Handler;
 
+
+
 /**
  * Получение событий от JQvery
  */
-Handler.prototype.event_of_user = $("#game").on("click", function(event){
-  var clicking_element = event.target;
-  var element_role = "" + clicking_element.getAttribute('role');
+Handler.prototype.click_in_button = function() {
+  $("button").on("click", function(event){
+    if (event.target.id === "start") {
+      handler.start();
 
-  if (clicking_element.id === "start") {
-    handler.start();
-  }
+    }
 
-  if (clicking_element.id === "restart") {
-    handler.restart();
-  }
+    if (event.target.id === "restart") {
+      handler.restart();
+    }
 
-  if (element_role.substring(0, 4) === "cell") {
-    handler.set_new_turn(element_role[5], element_role[6]);
-  }
+    return false;
+  });
+};
 
-  return false;
-});
+/**
+ * Получение событий от JQvery
+ */
+Handler.prototype.click_in_cell = function(){
+  $("#board").on("click", function(event){
+    var element_role = "" + event.target.getAttribute('role');
+
+    if (element_role.substring(0, 4) === "cell") {
+      handler.set_new_turn(element_role[5], element_role[6]);
+    }
+
+    return false;
+  });
+};
+
+handler.click_in_button();
+handler.click_in_cell();
 
 /**
  * Запуск новой игры с введенным количеством клеток стороны доски
  */
 Handler.prototype.start = function() {
   lenth_board = document.getElementById("lenth-board").value;
+
   if (lenth_board < 1 || lenth_board > 10) {
     alert("Длина доски должна быть от 1 до 10");
-  }
- else {
+  } else {
     app = new Application(lenth_board);
     app.run();
-    app.game.redraw.game_visible();
+    app.painter.set_all();
+    app.painter.game_visible();
   }
 };
 
@@ -57,8 +74,7 @@ Handler.prototype.set_new_turn = function(row, cell) {
  */
 Handler.prototype.restart = function() {
   var number_cell = app.board.size_board;
-  delete app.board;
- 	app.board = new Board(number_cell);
-  app.game = new Game(app.player1, app.board);
-  app.game.redraw.set_all();
+  delete app;
+ 	app = new Application(number_cell);
+  app.run();
 };
