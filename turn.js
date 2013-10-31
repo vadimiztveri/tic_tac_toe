@@ -70,7 +70,9 @@ Turn.prototype.is_diagonal_up_win = function() {
   return false;
 };
 
-
+/**
+ * Присваивает ячейчам победной комбанации статус (cell.win === true).
+ */
 Turn.prototype.set_win_cells_horizontal = function(number) {
   for (var i = 0; i < this.board.size_board; i++){
     this.board.rows[number][i].set_win();

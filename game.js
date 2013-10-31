@@ -6,6 +6,7 @@ function Game(current_player, board) {
   this.step_number = 0;
   this.end = false;
   this.board = board;
+  this.redraw = new Redraw(this);
 };
 
 /**
@@ -24,7 +25,7 @@ Game.prototype.step = function(row, cell) {
     }
   }
 
-  app.redraw.set_board();
+  this.redraw.set_all();
 };
 
 Game.prototype.prepare_next_turn = function() {
@@ -46,45 +47,20 @@ Game.prototype.is_last_step = function() {
 Game.prototype.change_current_player = function() {
   if (this.current_player === app.player1) {
     this.current_player = app.player2;
-    this.display_change_player_to("player2");
   } else {
     this.current_player = app.player1;
-    this.display_change_player_to("player1"); //change --> change
   }
-};
-
-/**
- * Меняет в HTML отображение игрока, чей сейчас ход
- */
-Game.prototype.display_change_player_to = function(player) {
-  if (player === "player1") {
-    var color_player1 = "#000"; var color_player2 = "#ddd";
-  } else {
-    var color_player1 = "#ddd"; var color_player2 = "#000";
-  }
-  document.getElementById("gamer1").style.color = color_player1;
-  document.getElementById("gamer2").style.color = color_player2;
 };
 
 Game.prototype.ended_in_victory = function() {
-  this.end = true;
-  this.display_end_with_victory();
-};
-
-Game.prototype.display_end_with_victory = function() {
-  document.getElementById("winner").innerHTML = "Победил" + this.current_player.name;
+  this.end = "victori";
 };
 
 Game.prototype.ended_in_standoff = function() {
-  this.end = true;
-  this.display_end_with_standoff();
+  this.end = "standoff";
 };
 
-Game.prototype.display_end_with_standoff = function() {
-  document.getElementById("winner").innerHTML = "Ничья";
-};
-
-
+/*
 var temp = function() {
   console.log("--------------");
   for (var i = 0; i < app.board.size_board; i++){
@@ -99,3 +75,4 @@ var temp = function() {
   console.log(array);
   }
 }
+*/

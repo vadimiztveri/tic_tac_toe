@@ -24,25 +24,6 @@ Board.prototype.create_rows = function() {
   return rows;
 };
 
-Board.prototype.redraw = function() {
-  var table_text = "";
-  for (var i = 0; i < this.size_board; i++) {
-    table_text += "<tr>";
-    for (var j = 0; j <this.size_board; j++) {
-      table_text += this.rows[i][j].redraw(i, j);
-    }
-    table_text += "</tr>";
-  }
-  this.display(table_text);
-};
-
-/**
- * Вставляет игровую доску в HTML
- */
-Board.prototype.display = function(table_text) {
-  document.getElementById("board").innerHTML = table_text;
-};
-
 Board.prototype.get_chip = function(row, cell) {
   if (this.rows[row][cell].chip) {
     return this.rows[row][cell].chip.name;
