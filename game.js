@@ -9,8 +9,8 @@ function Game(current_player, board) {
 };
 
 Game.prototype.start = function() {
-  this.painter = app.painter;
-  this.painter.set_all();
+  this.painter = app.ui.painter;
+  this.painter.redraw();
 };
 
 /**
@@ -29,7 +29,7 @@ Game.prototype.step = function(row, cell) {
     }
   }
 
-  this.painter.set_all();
+  this.painter.redraw();
 };
 
 Game.prototype.prepare_next_turn = function() {

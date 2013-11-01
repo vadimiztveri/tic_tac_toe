@@ -2,23 +2,21 @@
  * Обработчик событий
  * @constructor
  */
-function Handler() {
+function UI() {
 };
-var handler = new Handler;
-
 
 
 /**
  * Получение событий от JQvery
  */
-Handler.prototype.click_in_button = function() {
+UI.prototype.click_in_button = function() {
   $("button").on("click", function(event){
     if (event.target.id === "start") {
-      handler.start();
+      app.ui.start();
     }
 
     if (event.target.id === "restart") {
-      handler.restart();
+      app.ui.restart();
     }
 
     return false;
@@ -28,41 +26,39 @@ Handler.prototype.click_in_button = function() {
 /**
  * Получение событий от JQvery
  */
-Handler.prototype.click_in_cell = function(){
+UI.prototype.click_in_cell = function(){
   $("#board").on("click", function(event){
     var element_role = "" + event.target.getAttribute('role');
 
     if (element_role.substring(0, 4) === "cell") {
-      handler.set_new_turn(element_role[5], element_role[6]);
+      app.ui.set_new_turn(element_role[5], element_role[6]);
     }
 
     return false;
   });
 };
 
-handler.click_in_button();
-handler.click_in_cell();
+UI.prototype.set_painter = function(game) {
+  this.painter = new Painter(game);
+}
 
 /**
  * Запуск новой игры с введенным количеством клеток стороны доски
  */
-Handler.prototype.start = function() {
-  lenth_board = document.getElementById("lenth-board").value;
+UI.prototype.start = function() {
+  var length_board = Number($("#length-board").val());
 
-  if (lenth_board < 1 || lenth_board > 10) {
+  if (length_board < 1 || length_board > 10) {
     alert("Длина доски должна быть от 1 до 10");
   } else {
-    app = new Application(lenth_board);
-    app.run();
-    app.painter.set_all();
-    app.painter.game_visible();
+    app.run(length_board);
   }
 };
 
 /**
  * По клику в доску получает сведения о ходе игрока
  */
-Handler.prototype.set_new_turn = function(row, cell) {
+UI.prototype.set_new_turn = function(row, cell) {
   if (!app.board.rows[row][cell].chip && !app.game.end) {
     app.game.step(row, cell);
   }
@@ -71,9 +67,9 @@ Handler.prototype.set_new_turn = function(row, cell) {
 /**
  * Удаление старой доски и запуск новой. Число клеток на стороне сохраняется
  */
-Handler.prototype.restart = function() {
+UI.prototype.restart = function() {
   var number_cell = app.board.size_board;
   delete app;
- 	app = new Application(number_cell);
-  app.run();
+ 	app = new Application();
+  app.run(number_cell);
 };

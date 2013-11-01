@@ -2,21 +2,21 @@
  * Рисует всю доску с фишками
  * @constructor
  */
-function Redraw(game) {
+function Painter(game) {
   this.game = game;
 };
 
-Redraw.prototype.set_all = function() {
+Painter.prototype.redraw = function() {
   this.set_players();
   this.set_end_game();
   this.set_board();
 }
 
-Redraw.prototype.game_visible = function(){
+Painter.prototype.game_visible = function(){
   $('#game-area').animate({opacity:1});
 }
 
-Redraw.prototype.set_players = function() {
+Painter.prototype.set_players = function() {
   if (this.game.current_player === app.player1) {
     var color_player1 = "#000"; var color_player2 = "#ddd";
   } else {
@@ -28,7 +28,7 @@ Redraw.prototype.set_players = function() {
   $("#gamer2").html(app.player2.name + " " + "<img src='png/" + app.player2.chip.name + ".png'>");
 }
 
-Redraw.prototype.set_end_game = function() {
+Painter.prototype.set_end_game = function() {
   if (!this.game.end) {
     var text = "";
   } else {
@@ -42,7 +42,7 @@ Redraw.prototype.set_end_game = function() {
   $("#winner").html(text);
 }
 
-Redraw.prototype.set_board = function() {
+Painter.prototype.set_board = function() {
   var table_text = "";
 
   for (var i = 0; i < this.game.board.size_board; i++) {
@@ -55,7 +55,7 @@ Redraw.prototype.set_board = function() {
   this.display(table_text);
 }
 
-Redraw.prototype.set_cell = function(row, cell) {
+Painter.prototype.set_cell = function(row, cell) {
   var role = "cell-" + row + cell,
       style = "",
       html_class = "";
@@ -85,10 +85,10 @@ Redraw.prototype.set_cell = function(row, cell) {
   return "<td role='" + role + "' " + style + html_class + "></td>";
 };
 
-Redraw.prototype.set_chip = function(chip) {
+Painter.prototype.set_chip = function(chip) {
   return " style=\"background-image:url('png/" + chip + ".png')\"";
 };
 
-Redraw.prototype.display = function(table_text) {
+Painter.prototype.display = function(table_text) {
   $("#board").html(table_text);
 }
