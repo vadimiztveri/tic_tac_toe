@@ -30,7 +30,7 @@ Board.prototype.get_chip = function(row, cell) {
   } else {
     return false;
   }
-}
+};
 
 Board.prototype.get_win = function(row, cell) {
   if (this.rows[row][cell].win) {
@@ -38,4 +38,4 @@ Board.prototype.get_win = function(row, cell) {
   } else {
     return false;
   }
-}
+};

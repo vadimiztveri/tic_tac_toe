@@ -10,11 +10,11 @@ Painter.prototype.redraw = function() {
   this.set_players();
   this.set_end_game();
   this.set_board();
-}
+};
 
 Painter.prototype.game_visible = function(){
   $('#game-area').animate({opacity:1});
-}
+};
 
 Painter.prototype.set_players = function() {
   if (this.game.current_player === app.player1) {
@@ -26,7 +26,7 @@ Painter.prototype.set_players = function() {
   $("#gamer1").html(app.player1.name + " " + "<img src='png/" + app.player1.chip.name + ".png'>");
   $("#gamer2").css("color", color_player2);
   $("#gamer2").html(app.player2.name + " " + "<img src='png/" + app.player2.chip.name + ".png'>");
-}
+};
 
 Painter.prototype.set_end_game = function() {
   if (!this.game.end) {
@@ -40,7 +40,7 @@ Painter.prototype.set_end_game = function() {
   }
   
   $("#winner").html(text);
-}
+};
 
 Painter.prototype.set_board = function() {
   var table_text = "";
@@ -53,7 +53,7 @@ Painter.prototype.set_board = function() {
     table_text += "</tr>";
   }
   this.display(table_text);
-}
+};
 
 Painter.prototype.set_cell = function(row, cell) {
   var role = "cell-" + row + cell,
@@ -68,20 +68,6 @@ Painter.prototype.set_cell = function(row, cell) {
     html_class = "class=win";
   }
 
-/*
-  var node = $('<td></td>')
-    .attr('role', 'x')
-    .attr('style', 'x')
-    .attr('class', 'x');
-    .attr(
-      {
-        'role': 'x',
-        'style': 'a',
-        'class': 'b
-      }
-     )
-*/
-
   return "<td role='" + role + "' " + style + html_class + "></td>";
 };
 
@@ -91,4 +77,4 @@ Painter.prototype.set_chip = function(chip) {
 
 Painter.prototype.display = function(table_text) {
   $("#board").html(table_text);
-}
+};

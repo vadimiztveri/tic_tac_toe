@@ -35,7 +35,7 @@ Game.prototype.step = function(row, cell) {
 Game.prototype.prepare_next_turn = function() {
   this.change_current_player();
   this.step_number++; 
-}
+};
 
 Game.prototype.is_last_step = function() {
   if (this.step_number === (this.board.size_board*this.board.size_board - 1)) {
@@ -43,7 +43,7 @@ Game.prototype.is_last_step = function() {
   } else {
     return false;
   }
-}
+};
 
 /**
  * Смена игрока
@@ -63,20 +63,3 @@ Game.prototype.ended_in_victory = function() {
 Game.prototype.ended_in_standoff = function() {
   this.end = "standoff";
 };
-
-/*
-var temp = function() {
-  console.log("--------------");
-  for (var i = 0; i < app.board.size_board; i++){
-    var array = [];
-    for (var j = 0; j < app.board.size_board; j++){
-      if (app.board.rows[i][j].chip) {
-        array.push(app.board.rows[i][j].chip.name);
-      } else {
-        array.push("____");
-      }
-    }
-  console.log(array);
-  }
-}
-*/

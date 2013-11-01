@@ -1,18 +1,45 @@
 function Application() {
   this.player1 = new Player(new Chip("cross"), "Игрок 1");
   this.player2 = new Player(new Chip("zero"), "Игрок 2");
-  this.ui = new UI();
+  this.ui = new UI(this);
 
-  this.ui.click_in_button();
-  this.ui.click_in_cell();
+  var that = this;
+  $(this.ui)
+    .on(
+      'start',
+      function() {
+	      that.board = new Board(Number($("#length-board").val()));
+        that.game = new Game(that.player1, that.board);
+        that.ui.set_painter(that.game);
+        that.game.start();
+        that.ui.painter.game_visible();
+      }
+    )
+      .on(
+      'restart',
+      function() {
+        var size = app.board.size_board;
+        delete that.board;
+        delete that.game;
+        that.board = new Board(size);
+        that.game = new Game(that.player1, that.board);
+        that.ui.set_painter(that.game);
+        that.game.start();
+      }
+    )
+    .on(
+      'cell',
+      function(event, row, cell) {
+        if (!that.board.rows[row][cell].chip && !that.game.end) {
+          that.game.step(row, cell);
+        }
+      }
+    )
 };
 
 Application.prototype.run = function(size_board) {
-	this.board = new Board(size_board);
-  this.game = new Game(this.player1, this.board)
-  this.ui.set_painter(this.game);
-  this.game.start();
-  this.ui.painter.game_visible();
+  this.ui.attach_handlers();
 };
 
 var app = new Application();
+app.run();
