@@ -13,43 +13,37 @@ UI.prototype.attach_handlers = function() {
 
 /**
  * Клик на кнопку старт
+ * @private
  */
 UI.prototype.report_click_in_start = function() {
-  var that = this,
-      size_board;
-
   $("#start").on("click", function(event){
-    size_board = Number($("#length-board").val());
-    $(that).trigger('start', [size_board]);
+    var board_size = Number($("#length-board").val());
+    $(this).trigger('start', [board_size]);
 
     return false;
-  });
+  }.bind(this));
 };
 
 /**
  * Клик на кнопку рестарт
+ * @private
  */
 UI.prototype.report_click_in_restart = function() {
-  var that = this;
-  
   $("#restart").on("click", function(event){
-    $(that).trigger('restart');
+    $(this).trigger('restart');
 
     return false;
-  });
+  }.bind(this));
 };
-
 
 /**
  * Клик в поле на доске
+ * @private
  */
 UI.prototype.click_in_cell = function(){
-  var that = this;
-  
   $("#board").on("click", function(event){
     var element_role = "" + $(event.target).attr('role');
-    $(that).trigger('cell', [element_role[5], element_role[6]]);
+    $(this).trigger('cell', [element_role[5], element_role[6]]);
     return false;
-  });
+  }.bind(this));
 };
-

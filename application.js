@@ -1,49 +1,65 @@
 function Application() {
   this.player1 = new Player(new Chip("cross"), "Игрок 1");
   this.player2 = new Player(new Chip("zero"), "Игрок 2");
+  
   this.ui = new UI(this);
 
-  var that = this;
   $(this.ui)
-    .on(
-      'start',
-      function(event, size_board) {
-	      that.start(size_board);
-      }
-    )
-      .on(
-      'restart',
-      function(event) {
-	      that.restart();
-      }
-    )
-    .on(
-      'cell',
-      function(event, row, cell) {
-        if (that.game.can_turn(row, cell)) {
-          that.game.step(row, cell);
-        }
-      }
-    )
+    .on('start', this.ui_start_event_handler.bind(this))
+    .on( 'restart', this.ui_restart_event_handler.bind(this))
+    .on( 'cell', this.ui_turn_event_handler.bind(this))
 };
 
 Application.prototype.run = function(size_board) {
   this.ui.attach_handlers();
 };
 
-Application.prototype.start = function(size_board) {
-  this.board = new Board(size_board);
+/**
+ * @private
+ */
+Application.prototype.ui_start_event_handler = function(event, board_size) {
+  this.start(board_size);
+}
+
+/**
+ * @private
+ */
+Application.prototype.ui_restart_event_handler = function(event) {
+  this.restart();
+}
+
+Application.prototype.ui_turn_event_handler = function(event, row, cell) {
+  if (this.game.can_turn(row, cell)) {
+    this.game.step(row, cell);
+  }
+}
+
+/**
+ * @private
+ */
+Application.prototype.start = function(board_size) {
+  this.board_size = board_size;
+  this.board = this.board_factory();
+
   this.game = new Game(this.player1, this.board);
   this.game.start();
 }
 
-Application.prototype.restart = function(size_board) {
-  var size = this.board.size_board;
-  delete this.board;
-  delete this.game;
-  this.board = new Board(size_board);
+/**
+ * @private
+ */
+Application.prototype.restart = function() {
+  this.board = this.board_factory();
+
   this.game = new Game(this.player1, this.board);
   this.game.start();
+}
+
+/**
+ * @private
+ */
+Application.prototype.board_factory = function() {
+  return new Board(this.board_size);
 }
 
 var app = new Application();

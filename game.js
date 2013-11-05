@@ -17,6 +17,7 @@ Game.prototype.start = function() {
 
 /**
  * Ход одного игрока
+ * @private
  */
 Game.prototype.step = function(row, cell) {
   this.last_turn = new Turn(this.current_player, [row, cell], this.board);
@@ -56,11 +57,7 @@ Game.prototype.is_last_step = function() {
  * @privat
  */
 Game.prototype.change_current_player = function() {
-  if (this.current_player === app.player1) {
-    this.current_player = app.player2;
-  } else {
-    this.current_player = app.player1;
-  }
+  this.current_player = (this.current_player === app.player1 ? app.player2 : app.player1);
 };
 
 /**
@@ -72,17 +69,26 @@ Game.prototype.can_turn = function(row, cell) {
   }
 }
 
-Game.prototype.VICTORI = 1;
+Game.prototype.VICTORY = 1;
 Game.prototype.STANDOFF = 2;
 
+/**
+ * @private
+ */
 Game.prototype.ended_in_victory = function() {
-  this.end = this.VICTORI;
+  this.end = this.VICTORY;
 };
 
+/**
+ * @private
+ */
 Game.prototype.ended_in_standoff = function() {
   this.end = this.STANDOFF;
 };
 
+/**
+ * @private
+ */
 Game.prototype.redraw = function() {
   this.painter = new Painter(this);
   this.painter.redraw();

@@ -32,11 +32,15 @@ Painter.prototype.set_players = function() {
   } else {
     var color_player1 = "#ddd"; var color_player2 = "#000";
   }
-  $("#gamer1").css("color", color_player1);
-  $("#gamer1").html(app.player1.name + " " + "<img src='png/" + app.player1.chip.name + ".png'>");
+  this.get_gamer_one_node().css("color", color_player1);
+  this.get_gamer_one_node().html(app.player1.name + " " + "<img src='png/" + app.player1.chip.name + ".png'>");
   $("#gamer2").css("color", color_player2);
   $("#gamer2").html(app.player2.name + " " + "<img src='png/" + app.player2.chip.name + ".png'>");
 };
+
+Painter.prototype.get_gamer_one_node = function() {
+  return $("#gamer1");
+}
 
 /**
  * @privat
@@ -45,7 +49,7 @@ Painter.prototype.set_end_game = function() {
   if (!this.game.end) {
     var text = "";
   } else {
-    if (this.game.end === this.game.VICTORI) {
+    if (this.game.end === this.game.VICTORY) {
       var text = "Победил: " + this.game.current_player.name + ".";
     } else {
       var text = "Ничья.";
