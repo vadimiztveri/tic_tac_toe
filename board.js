@@ -24,18 +24,20 @@ Board.prototype.create_rows = function() {
   return rows;
 };
 
+/**
+ * @privat
+ */
 Board.prototype.get_chip = function(row, cell) {
   if (this.rows[row][cell].chip) {
     return this.rows[row][cell].chip.name;
-  } else {
-    return false;
   }
 };
 
+/**
+ * @privat
+ */
 Board.prototype.get_win = function(row, cell) {
   if (this.rows[row][cell].win) {
     return true;
-  } else {
-    return false;
   }
 };

@@ -8,6 +8,10 @@ function WinningCombination(chip, board, number) {
   this.number = number;
 };
 
+
+/**
+ * @privat
+ */
 WinningCombination.prototype.gorisontal = function() {
   var win = true;
 
@@ -21,6 +25,9 @@ WinningCombination.prototype.gorisontal = function() {
   return win;
 };
 
+/**
+ * @privat
+ */
 WinningCombination.prototype.vertical = function() {
   var win = true;
   
@@ -34,6 +41,9 @@ WinningCombination.prototype.vertical = function() {
   return win;
 };
 
+/**
+ * @privat
+ */
 WinningCombination.prototype.diagonal_down = function() {
   var win = true;
   
@@ -47,6 +57,9 @@ WinningCombination.prototype.diagonal_down = function() {
   return win;
 };
 
+/**
+ * @privat
+ */
 WinningCombination.prototype.diagonal_up = function() {
   var win = true;
   

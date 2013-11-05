@@ -10,12 +10,22 @@ Painter.prototype.redraw = function() {
   this.set_players();
   this.set_end_game();
   this.set_board();
+  
+  if ($("#game-area").css("opacity") === "0") {
+    this.set_game_visible();
+  }
 };
 
-Painter.prototype.game_visible = function(){
+/**
+ * @privat
+ */
+Painter.prototype.set_game_visible = function(){
   $('#game-area').animate({opacity:1});
 };
 
+/**
+ * @privat
+ */
 Painter.prototype.set_players = function() {
   if (this.game.current_player === app.player1) {
     var color_player1 = "#000"; var color_player2 = "#ddd";
@@ -28,11 +38,14 @@ Painter.prototype.set_players = function() {
   $("#gamer2").html(app.player2.name + " " + "<img src='png/" + app.player2.chip.name + ".png'>");
 };
 
+/**
+ * @privat
+ */
 Painter.prototype.set_end_game = function() {
   if (!this.game.end) {
     var text = "";
   } else {
-    if (this.game.end === "victori") {
+    if (this.game.end === this.game.VICTORI) {
       var text = "Победил: " + this.game.current_player.name + ".";
     } else {
       var text = "Ничья.";
@@ -42,6 +55,9 @@ Painter.prototype.set_end_game = function() {
   $("#winner").html(text);
 };
 
+/**
+ * @privat
+ */
 Painter.prototype.set_board = function() {
   var table_text = "";
 
@@ -55,6 +71,9 @@ Painter.prototype.set_board = function() {
   this.display(table_text);
 };
 
+/**
+ * @privat
+ */
 Painter.prototype.set_cell = function(row, cell) {
   var role = "cell-" + row + cell,
       style = "",
@@ -71,10 +90,16 @@ Painter.prototype.set_cell = function(row, cell) {
   return "<td role='" + role + "' " + style + html_class + "></td>";
 };
 
+/**
+ * @privat
+ */
 Painter.prototype.set_chip = function(chip) {
   return " style=\"background-image:url('png/" + chip + ".png')\"";
 };
 
+/**
+ * @privat
+ */
 Painter.prototype.display = function(table_text) {
   $("#board").html(table_text);
 };

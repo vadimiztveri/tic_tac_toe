@@ -6,24 +6,34 @@ function UI() {
 };
 
 UI.prototype.attach_handlers = function() {
-  this.click_in_button();
+  this.report_click_in_start();
+  this.report_click_in_restart();
   this.click_in_cell();
 };
 
 /**
- * Получение событий от JQvery
+ * Клик на кнопку старт
  */
-UI.prototype.click_in_button = function() {
+UI.prototype.report_click_in_start = function() {
+  var that = this,
+      size_board;
+
+  $("#start").on("click", function(event){
+    size_board = Number($("#length-board").val());
+    $(that).trigger('start', [size_board]);
+
+    return false;
+  });
+};
+
+/**
+ * Клик на кнопку рестарт
+ */
+UI.prototype.report_click_in_restart = function() {
   var that = this;
   
-  $("button").on("click", function(event){
-    if (event.target.id === "start") {
-      $(that).trigger('start');
-    }
-
-    if (event.target.id === "restart") {
-      $(that).trigger('restart');
-    }
+  $("#restart").on("click", function(event){
+    $(that).trigger('restart');
 
     return false;
   });
@@ -31,22 +41,15 @@ UI.prototype.click_in_button = function() {
 
 
 /**
- * Получение событий от JQvery
+ * Клик в поле на доске
  */
 UI.prototype.click_in_cell = function(){
   var that = this;
   
   $("#board").on("click", function(event){
-    var element_role = "" + event.target.getAttribute('role');
-
-    if (element_role.substring(0, 4) === "cell") {
-      $(that).trigger('cell', [element_role[5], element_role[6]]);
-    }
-
+    var element_role = "" + $(event.target).attr('role');
+    $(that).trigger('cell', [element_role[5], element_role[6]]);
     return false;
   });
 };
 
-UI.prototype.set_painter = function(game) {
-  this.painter = new Painter(game);
-};

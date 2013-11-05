@@ -7,30 +7,20 @@ function Application() {
   $(this.ui)
     .on(
       'start',
-      function() {
-	      that.board = new Board(Number($("#length-board").val()));
-        that.game = new Game(that.player1, that.board);
-        that.ui.set_painter(that.game);
-        that.game.start();
-        that.ui.painter.game_visible();
+      function(event, size_board) {
+	      that.start(size_board);
       }
     )
       .on(
       'restart',
-      function() {
-        var size = app.board.size_board;
-        delete that.board;
-        delete that.game;
-        that.board = new Board(size);
-        that.game = new Game(that.player1, that.board);
-        that.ui.set_painter(that.game);
-        that.game.start();
+      function(event) {
+	      that.restart();
       }
     )
     .on(
       'cell',
       function(event, row, cell) {
-        if (!that.board.rows[row][cell].chip && !that.game.end) {
+        if (that.game.can_turn(row, cell)) {
           that.game.step(row, cell);
         }
       }
@@ -40,6 +30,21 @@ function Application() {
 Application.prototype.run = function(size_board) {
   this.ui.attach_handlers();
 };
+
+Application.prototype.start = function(size_board) {
+  this.board = new Board(size_board);
+  this.game = new Game(this.player1, this.board);
+  this.game.start();
+}
+
+Application.prototype.restart = function(size_board) {
+  var size = this.board.size_board;
+  delete this.board;
+  delete this.game;
+  this.board = new Board(size_board);
+  this.game = new Game(this.player1, this.board);
+  this.game.start();
+}
 
 var app = new Application();
 app.run();

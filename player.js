@@ -7,6 +7,9 @@ function Player(chip, name) {
   this.name = name;
 };
 
+/**
+ * @privat
+ */
 Player.prototype.get_chip = function() {
   return this.chip.name;
 };

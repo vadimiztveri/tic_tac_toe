@@ -8,9 +8,11 @@ function Game(current_player, board) {
   this.board = board;
 };
 
+/**
+ * @privat
+ */
 Game.prototype.start = function() {
-  this.painter = app.ui.painter;
-  this.painter.redraw();
+  this.redraw();
 };
 
 /**
@@ -29,24 +31,29 @@ Game.prototype.step = function(row, cell) {
     }
   }
 
-  this.painter.redraw();
+  this.redraw();
 };
 
+/**
+ * @privat
+ */
 Game.prototype.prepare_next_turn = function() {
   this.change_current_player();
   this.step_number++; 
 };
 
+/**
+ * @privat
+ */
 Game.prototype.is_last_step = function() {
   if (this.step_number === (this.board.size_board*this.board.size_board - 1)) {
     return true;
-  } else {
-    return false;
   }
 };
 
 /**
  * Смена игрока
+ * @privat
  */
 Game.prototype.change_current_player = function() {
   if (this.current_player === app.player1) {
@@ -56,10 +63,27 @@ Game.prototype.change_current_player = function() {
   }
 };
 
+/**
+ * @private
+ */
+Game.prototype.can_turn = function(row, cell) {
+  if(!this.board.get_chip(row, cell) && !this.end){
+    return true;
+  }
+}
+
+Game.prototype.VICTORI = 1;
+Game.prototype.STANDOFF = 2;
+
 Game.prototype.ended_in_victory = function() {
-  this.end = "victori";
+  this.end = this.VICTORI;
 };
 
 Game.prototype.ended_in_standoff = function() {
-  this.end = "standoff";
+  this.end = this.STANDOFF;
+};
+
+Game.prototype.redraw = function() {
+  this.painter = new Painter(this);
+  this.painter.redraw();
 };
