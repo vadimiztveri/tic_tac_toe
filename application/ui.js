@@ -1,3 +1,4 @@
+Application.UI = (function(){
 /**
  * Обработчик событий
  * @constructor
@@ -44,6 +45,10 @@ UI.prototype.click_in_cell = function(){
   $("#board").on("click", function(event){
     var element_role = "" + $(event.target).attr('role');
     $(this).trigger('cell', [element_role[5], element_role[6]]);
+
     return false;
   }.bind(this));
 };
+
+  return UI;
+})();

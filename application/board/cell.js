@@ -1,3 +1,4 @@
+Application.Board.Cell = (function(){
 /**
  * @param {Number} номер ячейки от 0 до 8
  * @constructor
@@ -18,3 +19,6 @@ Cell.prototype.set_chip = function(chip) {
 Cell.prototype.set_win = function(chip) {
   this.win = true;
 };
+
+  return Cell;
+})();

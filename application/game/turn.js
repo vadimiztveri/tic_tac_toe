@@ -1,3 +1,4 @@
+Application.Game.Turn = (function(){
 /**
  * Один ход
  * @constructor
@@ -32,7 +33,7 @@ Turn.prototype.is_victory = function() {
  */
 Turn.prototype.is_horizontal_win = function() {
   for (var i = 0; i < this.board.size_board; i++) {
-    var winning_combination = new WinningCombination(this.player.get_chip(), this.board, i);
+    var winning_combination = new Application.Game.Turn.WinningCombination(this.player.get_chip(), this.board, i);
     if (winning_combination.gorisontal()) {
       this.set_win_cells_horizontal(i);
       return true;
@@ -47,7 +48,7 @@ Turn.prototype.is_horizontal_win = function() {
  */
 Turn.prototype.is_vertical_win = function() {
   for (var i = 0; i < this.board.size_board; i++) {
-    winning_combination = new WinningCombination(this.player.get_chip(), this.board, i);
+    winning_combination = new Application.Game.Turn.WinningCombination(this.player.get_chip(), this.board, i);
     if (winning_combination.vertical()) {
       this.set_win_cells_vertical(i);
       return true;
@@ -61,7 +62,7 @@ Turn.prototype.is_vertical_win = function() {
  * @privat
  */
 Turn.prototype.is_diagonal_down_win = function() {
-  winning_combination = new WinningCombination(this.player.get_chip(), this.board, 0);
+  winning_combination = new Application.Game.Turn.WinningCombination(this.player.get_chip(), this.board, 0);
   if (winning_combination.diagonal_down()) {
     this.set_win_cells_diagonal_down();
     return true;
@@ -74,7 +75,7 @@ Turn.prototype.is_diagonal_down_win = function() {
  * @privat
  */
 Turn.prototype.is_diagonal_up_win = function() {
-  winning_combination = new WinningCombination(this.player.get_chip(), this.board, 0);
+  winning_combination = new Application.Game.Turn.WinningCombination(this.player.get_chip(), this.board, 0);
   if (winning_combination.diagonal_up()) {
     this.set_win_cells_diagonal_up();
     return true;
@@ -119,3 +120,6 @@ Turn.prototype.set_win_cells_diagonal_up = function() {
     this.board.rows[i][this.board.size_board - 1 - i].set_win();
   }
 };
+
+  return Turn;
+})();

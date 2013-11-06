@@ -1,3 +1,4 @@
+Application.Painter = (function(){
 /**
  * Рисует всю доску с фишками
  * @constructor
@@ -27,6 +28,20 @@ Painter.prototype.set_game_visible = function(){
  * @privat
  */
 Painter.prototype.set_players = function() {
+  for (var i = 0; i < this.game.count_players; i++){
+    var id = "#gamer" + (i + 1);
+    if (this.game.current_player === app.players[i]){
+      $(id).css("color", "#000");
+    } else {
+      $(id).css("color", "#ddd");
+    }
+    $(id).html(app.players[i].name + " " + "<img src='png/" + app.players[i].chip.name + ".png'>");
+  }
+  
+  
+  
+  
+/*  
   if (this.game.current_player === app.player1) {
     var color_player1 = "#000"; var color_player2 = "#ddd";
   } else {
@@ -36,11 +51,8 @@ Painter.prototype.set_players = function() {
   this.get_gamer_one_node().html(app.player1.name + " " + "<img src='png/" + app.player1.chip.name + ".png'>");
   $("#gamer2").css("color", color_player2);
   $("#gamer2").html(app.player2.name + " " + "<img src='png/" + app.player2.chip.name + ".png'>");
+*/
 };
-
-Painter.prototype.get_gamer_one_node = function() {
-  return $("#gamer1");
-}
 
 /**
  * @privat
@@ -107,3 +119,6 @@ Painter.prototype.set_chip = function(chip) {
 Painter.prototype.display = function(table_text) {
   $("#board").html(table_text);
 };
+
+  return Painter;
+})();

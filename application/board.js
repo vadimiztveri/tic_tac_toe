@@ -1,3 +1,4 @@
+Application.Board = (function(){
 /**
  * Доска для игры
  * @constructor
@@ -16,7 +17,7 @@ Board.prototype.create_rows = function() {
   for (var i = 0; i < this.size_board; i++) {
     var new_row = [];    
     for (var j = 0; j < this.size_board; j++) {
-      new_row.push(new Cell());
+      new_row.push(new Application.Board.Cell());
     }
     rows.push(new_row);
   }
@@ -41,3 +42,6 @@ Board.prototype.get_win = function(row, cell) {
     return true;
   }
 };
+
+  return Board;
+})();

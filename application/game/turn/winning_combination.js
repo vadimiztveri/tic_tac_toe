@@ -1,3 +1,4 @@
+Application.Game.Turn.WinningCombination = (function(){
 /**
  * Поиск победной комбинации
  * @constructor
@@ -71,3 +72,6 @@ WinningCombination.prototype.diagonal_up = function() {
 
   return win;
 };
+
+  return WinningCombination;
+})();

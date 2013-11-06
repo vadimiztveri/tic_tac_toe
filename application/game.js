@@ -1,11 +1,13 @@
+Application.Game = (function(){
 /**
  * @constructor
  */
-function Game(current_player, board) {
+function Game(current_player, board, count_players) {
   this.current_player = current_player;
   this.step_number = 0;
   this.end = false;
   this.board = board;
+  this.count_players = count_players;
 };
 
 /**
@@ -20,7 +22,7 @@ Game.prototype.start = function() {
  * @private
  */
 Game.prototype.step = function(row, cell) {
-  this.last_turn = new Turn(this.current_player, [row, cell], this.board);
+  this.last_turn = new Application.Game.Turn(this.current_player, [row, cell], this.board);
 
   if (this.last_turn.is_victory()) {
     this.ended_in_victory();
@@ -57,7 +59,7 @@ Game.prototype.is_last_step = function() {
  * @privat
  */
 Game.prototype.change_current_player = function() {
-  this.current_player = (this.current_player === app.player1 ? app.player2 : app.player1);
+  this.current_player = this.current_player.next_player;
 };
 
 /**
@@ -90,6 +92,9 @@ Game.prototype.ended_in_standoff = function() {
  * @private
  */
 Game.prototype.redraw = function() {
-  this.painter = new Painter(this);
+  this.painter = new Application.Painter(this);
   this.painter.redraw();
 };
+
+  return Game;
+})();
