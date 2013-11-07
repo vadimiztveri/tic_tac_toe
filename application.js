@@ -11,14 +11,14 @@ function Application() {
 
 Application.prototype.run = function(size_board) {
   this.ui.attach_handlers();
-  this.start(10, 4);
+//  this.start(10, 4);
 };
 
 /**
  * @private
  */
-Application.prototype.ui_start_event_handler = function(event, board_size) {
-  this.start(board_size);
+Application.prototype.ui_start_event_handler = function(event, board_size, win_length) {
+  this.start(board_size, win_length);
 };
 
 /**

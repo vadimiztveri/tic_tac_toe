@@ -11,9 +11,9 @@ function WinningCombination(chip, board, number) {
 
 
 /**
- * @privat
+ * @private
  */
-WinningCombination.prototype.gorisontal = function() {
+WinningCombination.prototype.horisontal = function() {
   var win = true;
 
   for (var i = 0; i < this.board.size_board; i++) {

@@ -1,6 +1,7 @@
 #size-board, #win_length{
 	font-size:200%;
-	width:40px;
+	width:50px;
+	padding:0 5px 0 5px;
 	text-align:right;
 	background:#ccc;
 }

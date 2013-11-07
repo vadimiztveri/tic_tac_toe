@@ -22,7 +22,7 @@ Game.prototype.start = function() {
  * @private
  */
 Game.prototype.step = function(row, cell) {
-  this.last_turn = new Application.Game.Turn(this.players.current.get_chip(), [row, cell], this.board, this.win_length);
+  this.last_turn = new Application.Game.Turn(this.players.get_current().get_chip(), [row, cell], this.board, this.win_length);
 
   if (this.last_turn.is_victory()) {
     this.ended_in_victory();
@@ -99,7 +99,7 @@ Game.prototype.redraw = function() {
   return Game;
 })();
 
-
+/*
 var temp = function() {
 console.log("--------------" + app.board_size);
 
@@ -115,3 +115,4 @@ console.log("--------------" + app.board_size);
     console.log(text);
   }
 }
+*/

@@ -6,7 +6,7 @@ Application.Players = (function(){
 function Players(names_chips) {
   this.names_chips = names_chips;
   this.players = this.create_players();
-  this.current = this.players[0];
+  this.current_index = 0;
 };
 
 /**
@@ -17,11 +17,9 @@ Players.prototype.create_players = function() {
       new_player;
   
   for(var i = 0; i < this.names_chips.length; i++){
-    new_player = new Application.Players.Player(new Application.Board.Chip(this.names_chips[i]), ("Игрок " + (i + 1)));
+    new_player = this.player_factory(i);
     players.push(new_player);
   }
-  
-  this.set_next_players(players);
   
   return players;
 };
@@ -29,22 +27,29 @@ Players.prototype.create_players = function() {
 /**
  * @private
  */
-Players.prototype.set_next_players = function(players) {
-  for(var i = 0; i < players.length; i++){
-    if (i === (players.length - 1)){
-      players[i].set_next_player(players[0]);
-    } else {
-      players[i].set_next_player(players[i + 1]);
-    }
-  }
-
+Players.prototype.player_factory = function(i) {
+  return new Application.Players.Player(new Application.Board.Chip(this.names_chips[i]), ("Игрок " + (i + 1)));
 }
 
 /**
  * @private
  */
 Players.prototype.change_player = function(){
-  this.current = this.current.next_player;
+  switch ( this.current_index ) {
+    case this.players.length - 1:
+      this.current_index = 0;
+      break;
+    
+    default:
+      this.current_index = this.current_index + 1;
+  }
+}
+
+/**
+ * @private
+ */
+Players.prototype.get_current = function(){
+  return this.players[this.current_index];
 }
 
   return Players;

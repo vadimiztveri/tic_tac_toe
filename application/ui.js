@@ -36,11 +36,17 @@ UI.prototype.report_click_in_start = function() {
  * @private
  */
 UI.prototype.errors = function(board_size, win_length) {
-  if (board_size < 1 ||  board_size > 10) {
+  if (
+    board_size < 1 ||
+    board_size > 10
+  ) {
     return "Ширина доски должна быть от 1 до 10.";
   }
   if (win_length > board_size) {
     return "Длина победной линии из фишек не может быть длиннее ширины доски.";
+  }
+  if (win_length < 3) {
+    return "Длина победной линии из фишек не может быть меньше 3.";
   }
 }
 

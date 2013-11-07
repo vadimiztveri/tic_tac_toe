@@ -13,13 +13,16 @@ function Turn(current_chip, coordinates, board, win_length) {
   this.set_chip();
 };
 
+/**
+ * @private
+ */
 Turn.prototype.set_chip = function () {
   this.board.rows[this.row][this.cell].set_chip(this.current_chip);
 };
 
 /**
  * Проверяет, есть ли на доске победная комбинация
- * @privat
+ * @private
  */
 Turn.prototype.is_victory = function() {
   return (
@@ -31,11 +34,11 @@ Turn.prototype.is_victory = function() {
 };
 
 /**
- * @privat
+ * @private
  */
 Turn.prototype.is_horizontal_win = function() {
-  var back_line = this.back(0, 1),
-      ahead_line = this.ahead(0, 1),
+  var ahead_line = this.ahead(0, 1),
+      back_line = this.back(0, 1),
       line = ahead_line + back_line[0];
 
   if (line >= this.win_length) {
@@ -45,11 +48,11 @@ Turn.prototype.is_horizontal_win = function() {
 };
 
 /**
- * @privat
+ * @private
  */
 Turn.prototype.is_vertical_win = function() {
-  var back_line = this.back(1, 0),
-      ahead_line = this.ahead(1, 0),
+  var ahead_line = this.ahead(1, 0),
+      back_line = this.back(1, 0),
       line = ahead_line + back_line[0];
 
   if (line >= this.win_length) {
@@ -59,7 +62,7 @@ Turn.prototype.is_vertical_win = function() {
 };
 
 /**
- * @privat
+ * @private
  */
 Turn.prototype.is_diagonal_down_win = function() {
   var back_line = this.back(1, 1),
@@ -73,7 +76,7 @@ Turn.prototype.is_diagonal_down_win = function() {
 };
 
 /**
- * @privat
+ * @private
  */
 Turn.prototype.is_diagonal_up_win = function() {
   var back_line = this.back(1, -1),
@@ -88,16 +91,18 @@ Turn.prototype.is_diagonal_up_win = function() {
 
 
 /**
- * @privat
+ * @private
  */
 Turn.prototype.ahead = function(y_count, x_count) {
   var ahead_line = 0;
   
   for (var i = 1; i < this.win_length; i++) {
-    if (
-      (this.row + (i*y_count)) < 10 &&
-      this.board.rows[this.row + (i*y_count)][(this.cell + (i*x_count))] &&
-      this.board.rows[this.row + (i*y_count)][(this.cell + (i*x_count))].chip === this.current_chip
+    var row = this.row + i*y_count,
+        cell = this.cell + i*x_count;
+
+    if (row < this.board.size_board &&
+        this.board.rows[row][cell] &&
+        this.board.rows[row][cell].chip === this.current_chip
     ){
       ahead_line++;
     } else {
@@ -109,17 +114,19 @@ Turn.prototype.ahead = function(y_count, x_count) {
 }
 
 /**
- * @privat
+ * @private
  */
 Turn.prototype.back = function(y_count, x_count) {
   var back_line = 0,
       start_cell = 0;
   
   for (var i = 0; i < this.win_length; i++) {
-    if (
-      (this.row - (i*y_count)) > -1 &&
-      this.board.rows[(this.row - (i*y_count))][(this.cell - (i*x_count))] &&
-      this.board.rows[(this.row - (i*y_count))][(this.cell - (i*x_count))].chip === this.current_chip
+    var row = this.row - i*y_count,
+        cell = this.cell - i*x_count;
+
+    if (row > -1 &&
+        this.board.rows[row][cell] &&
+        this.board.rows[row][cell].chip === this.current_chip
     ){
       back_line++;
       start_cell = i;
@@ -133,7 +140,7 @@ Turn.prototype.back = function(y_count, x_count) {
 
 /**
  * Присваивает ячейчам победной комбанации статус (cell.win === true).
- * @privat
+ * @private
  */
 Turn.prototype.set_win_cells_horizontal = function(row, cell, line) {
   for (var i = 0; i < line; i++){
@@ -142,7 +149,7 @@ Turn.prototype.set_win_cells_horizontal = function(row, cell, line) {
 };
 
 /**
- * @privat
+ * @private
  */
 Turn.prototype.set_win_cells_vertical = function(row, cell, line) {
   for (var i = 0; i < line; i++){
@@ -151,7 +158,7 @@ Turn.prototype.set_win_cells_vertical = function(row, cell, line) {
 };
 
 /**
- * @privat
+ * @private
  */
 Turn.prototype.set_win_cells_diagonal_down = function(row, cell, line) {
   for (var i = 0; i < line; i++){
@@ -160,7 +167,7 @@ Turn.prototype.set_win_cells_diagonal_down = function(row, cell, line) {
 };
 
 /**
- * @privat
+ * @private
  */
 Turn.prototype.set_win_cells_diagonal_up = function(row, cell, line) {
   for (var i = 0; i < line; i++){
