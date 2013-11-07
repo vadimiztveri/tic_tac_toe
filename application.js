@@ -1,7 +1,6 @@
 function Application() {
-  this.count_players = 3;
-  this.players = this.create_players(this.count_players, ["cross", "zero", "square"])
-  
+  this.players = new Application.Players(["cross", "zero", "square"]);
+      
   this.ui = new Application.UI(this);
 
   $(this.ui)
@@ -12,39 +11,8 @@ function Application() {
 
 Application.prototype.run = function(size_board) {
   this.ui.attach_handlers();
-  this.start(3);
+  this.start(10, 4);
 };
-
-/**
- * @private
- */
-Application.prototype.create_players = function(number, names) {
-  var players = [],
-      new_player;
-  
-  for(var i = 0; i < number; i++){
-    new_player = new Application.Player(new Application.Board.Chip(names[i]), ("Игрок " + (i + 1)));
-    players.push(new_player);
-  }
-  
-  this.set_next_players(players);
-  
-  return players;
-};
-
-/**
- * @private
- */
-Application.prototype.set_next_players = function(players) {
-  for(var i = 0; i < players.length; i++){
-    if (i === (players.length - 1)){
-      players[i].set_next_player(players[0]);
-    } else {
-      players[i].set_next_player(players[i + 1]);
-    }
-  }
-
-}
 
 /**
  * @private
@@ -72,8 +40,10 @@ Application.prototype.ui_turn_event_handler = function(event, row, cell) {
 /**
  * @private
  */
-Application.prototype.start = function(board_size) {
+Application.prototype.start = function(board_size, win_length) {
   this.board_size = board_size;
+  this.win_length = win_length;
+
   this.board = this.board_factory();
   this.game = this.game_factory();
   this.game.start();
@@ -84,7 +54,6 @@ Application.prototype.start = function(board_size) {
  */
 Application.prototype.restart = function() {
   this.board = this.board_factory();
-
   this.game = this.game_factory();
   this.game.start();
 };
@@ -100,5 +69,5 @@ Application.prototype.board_factory = function() {
  * @private
  */
 Application.prototype.game_factory = function() {
-  return new Application.Game(this.players[0], this.board, this.count_players);
+  return new Application.Game(this.players, this.board, this.win_length);
 };

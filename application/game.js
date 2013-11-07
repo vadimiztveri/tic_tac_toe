@@ -2,12 +2,12 @@ Application.Game = (function(){
 /**
  * @constructor
  */
-function Game(current_player, board, count_players) {
-  this.current_player = current_player;
+function Game(players, board, win_length) {
+  this.players = players;
+  this.win_length = win_length;
   this.step_number = 0;
   this.end = false;
   this.board = board;
-  this.count_players = count_players;
 };
 
 /**
@@ -22,7 +22,7 @@ Game.prototype.start = function() {
  * @private
  */
 Game.prototype.step = function(row, cell) {
-  this.last_turn = new Application.Game.Turn(this.current_player, [row, cell], this.board);
+  this.last_turn = new Application.Game.Turn(this.players.current.get_chip(), [row, cell], this.board, this.win_length);
 
   if (this.last_turn.is_victory()) {
     this.ended_in_victory();
@@ -59,7 +59,7 @@ Game.prototype.is_last_step = function() {
  * @privat
  */
 Game.prototype.change_current_player = function() {
-  this.current_player = this.current_player.next_player;
+  this.players.change_player();
 };
 
 /**
@@ -98,3 +98,20 @@ Game.prototype.redraw = function() {
 
   return Game;
 })();
+
+
+var temp = function() {
+console.log("--------------" + app.board_size);
+
+  for (var i = 0; i < app.board_size; i++){
+    var text = "";
+    for (var j = 0; j < app.board_size; j++){
+      if (app.board.rows[i][j].win){
+        text = text + "win :";
+      } else {
+        text += "___ :";
+      }
+    }
+    console.log(text);
+  }
+}

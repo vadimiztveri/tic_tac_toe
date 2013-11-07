@@ -30,7 +30,7 @@ Board.prototype.create_rows = function() {
  */
 Board.prototype.get_chip = function(row, cell) {
   if (this.rows[row][cell].chip) {
-    return this.rows[row][cell].chip.name;
+    return this.rows[row][cell].chip;
   }
 };
 

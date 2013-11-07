@@ -18,12 +18,31 @@ UI.prototype.attach_handlers = function() {
  */
 UI.prototype.report_click_in_start = function() {
   $("#start").on("click", function(event){
-    var board_size = Number($("#length-board").val());
-    $(this).trigger('start', [board_size]);
+    var board_size = Number($("#size-board").val());
+    var win_length = Number($("#win_length").val());
+
+    if (!this.errors(board_size, win_length)){
+      $(this).trigger('start', [board_size, win_length]);
+    } else {
+      alert(this.errors(board_size, win_length));
+    }
 
     return false;
   }.bind(this));
 };
+
+/**
+ * Клик на кнопку старт
+ * @private
+ */
+UI.prototype.errors = function(board_size, win_length) {
+  if (board_size < 1 ||  board_size > 10) {
+    return "Ширина доски должна быть от 1 до 10.";
+  }
+  if (win_length > board_size) {
+    return "Длина победной линии из фишек не может быть длиннее ширины доски.";
+  }
+}
 
 /**
  * Клик на кнопку рестарт

@@ -1,4 +1,4 @@
-Application.Player = (function(){
+Application.Players.Player = (function(){
 /**
  * Игрок
  * @constructor

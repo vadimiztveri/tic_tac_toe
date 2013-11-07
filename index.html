@@ -11,18 +11,21 @@
 		
 		<div id="game">
 			<form>
-				<input type="text" value="3" id="length-board"> <button id="start" >Начать игру</button>
+				<input type="text" value="10" id="size-board"> − сторона доски<br>
+				<input type="text" value="4" id="win_length"> − фишек в ряд для победы<br>
+				<button id="start" >Начать игру</button>
 			</form>
+
+			<table id="board"></table>
 			
 			<div id="game-area">
 				<div id="gamers">
-					<span id="gamer1" role="gamer1"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-					<span id="gamer2" role="gamer2"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-					<span id="gamer3" role="gamer3"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="winner"></span>
+					<span id="gamer1" role="gamer1"></span><br>
+					<span id="gamer2" role="gamer2"></span><br>
+					<span id="gamer3" role="gamer3"></span><br>
+					<span id="winner"></span>
 				</div>
 
-				<table id="board"></table>
-			
 				<button id="restart">Начать сначала</button>
 			</div>
 		</div>
@@ -32,7 +35,8 @@
 		<script src="application/board.js"></script>
 		<script src="application/board/cell.js"></script>
 		<script src="application/board/cell/chip.js"></script>
-		<script src="application/player.js"></script>
+		<script src="application/players.js"></script>
+		<script src="application/players/player.js"></script>
 		<script src="application/ui.js"></script>
 		<script src="application/ui/painter.js"></script>
 		<script src="application/game.js"></script>

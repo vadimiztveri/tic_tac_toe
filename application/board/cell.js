@@ -16,7 +16,7 @@ Cell.prototype.set_chip = function(chip) {
 /**
  * @privat
  */
-Cell.prototype.set_win = function(chip) {
+Cell.prototype.set_win = function() {
   this.win = true;
 };
 
