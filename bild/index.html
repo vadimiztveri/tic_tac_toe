@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Крестики-нолики</title>
+		<meta http-equiv="Content-Language" content="ru">
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+		<link type="text/css" href="css/all.css" rel="stylesheet" />
+	</head>
+	<body>
+		<h1>Крестики-нолики</h1>
+		
+		<div id="game">
+			<form>
+				<input type="text" value="5" id="size-board"> − сторона доски<br>
+				<input type="text" value="3" id="win_length"> − фишек в ряд для победы<br>
+				<button id="start" >Начать игру</button>
+			</form>
+
+			<table id="board"></table>
+			
+			<div id="game-area">
+				<div id="gamers">
+					<span id="gamer1" role="gamer1"></span><br>
+					<span id="gamer2" role="gamer2"></span><br>
+					<span id="gamer3" role="gamer3"></span><br>
+					<span id="winner"></span>
+				</div>
+
+				<button id="restart">Начать сначала</button>
+			</div>
+		</div>
+	
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script> <!-- grunt -->
+		<script src="js/all.js"></script>
+		
+	</body>
+</html>
